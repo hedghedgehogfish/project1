@@ -1,0 +1,59 @@
+import random
+
+def get_computer_choice():
+    choices = ["камень","ножницы","бумага"]
+    return random.choice(choices)
+
+def determine_winner(player,computer):
+    if player == computer:
+        return 'draw'
+    if (player == "камень" and computer == "ножницы") or \
+       (player == "ножницы" and computer == "бумага") or \
+       (player == "бумага" and computer == "камень"):
+        return 'player'
+    return 'computer'
+
+def main():
+    player_score = 0
+    computer_score = 0
+
+    print('=== Камень - Ножницы - Бумага ===')
+    print('Правила:')
+    print('-Камень бьёт ножницы-')
+    print('-Ножницы бьют Бумагу-')
+    print('-Бумага бьёт Камень-')
+    print('Первый, кто наберёт 3 очка, побеждает')
+
+    while player_score < 3 and computer_score < 3:
+        player = input('Введите (камень/ножницы/бумага):').lower()
+
+        if player not in ['камень',"ножницы","бумага"]:
+            print('Неверный ввод! попробуйте снова:')
+            continue
+    
+        computer = get_computer_choice()
+
+        print(f'Компьютер выбрал: {computer}')
+
+        result = determine_winner(player,computer)
+
+        if result == 'draw':
+            print('Ничья!')
+        elif result == 'player':
+            print('Вы выиграли раунд!')
+            player_score += 1
+        else:
+            print('Компьютер выиграл раунд!')
+            computer_score += 1
+
+        print(f'Счёт: игрок{player_score} : {computer_score} Компьютер')
+
+    print('=== Игра окончена ===')
+    print(f'Финальный счёт: Игрок {player_score} : {computer_score} Компьютер')
+
+    if player_score == 3:
+        print("Поздравляем! Вы победили!")
+    else:
+        print('победил Компьютер!')
+
+main()
